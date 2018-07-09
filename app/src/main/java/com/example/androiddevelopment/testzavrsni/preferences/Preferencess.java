@@ -8,13 +8,13 @@ import android.view.MenuItem;
 
 import com.example.androiddevelopment.testzavrsni.R;
 
-public class Preferences extends PreferenceActivity {
+public class Preferencess extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getFragmentManager().beginTransaction().replace(android.R.id.content, new Preferences.PrefsFragment()).commit();
+        getFragmentManager().beginTransaction().replace(android.R.id.content, new Preferencess.PrefsFragment()).commit();
     }
 
     @Override
