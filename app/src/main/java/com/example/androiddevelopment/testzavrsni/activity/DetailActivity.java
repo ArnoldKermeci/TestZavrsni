@@ -1,10 +1,16 @@
 package com.example.androiddevelopment.testzavrsni.activity;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +28,8 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 import java.sql.SQLException;
 import java.util.List;
 
+import static com.example.androiddevelopment.testzavrsni.activity.ListActivity.NOTIF_STATUS;
+import static com.example.androiddevelopment.testzavrsni.activity.ListActivity.NOTIF_TOAST;
 import static com.example.androiddevelopment.testzavrsni.activity.ListActivity.PRIJAVA_KEY;
 
 public class DetailActivity  extends AppCompatActivity {
@@ -85,6 +93,70 @@ public class DetailActivity  extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    private void refresh() {
+        ListView listview = (ListView) findViewById(R.id.prijava_list);
+
+        if (listview != null){
+            ArrayAdapter<Prijava> adapter = (ArrayAdapter<Prijava>) listview.getAdapter();
+
+            if(adapter!= null)
+            {
+                try {
+                    adapter.clear();
+                    List<Prijava> list = getDatabaseHelper().getPrijavaDao().queryBuilder()
+                            .where()
+                            .eq(Prijava.FIELD_NAME_USER, prijava.getmId())
+                            .query();
+
+                    adapter.addAll(list);
+
+                    adapter.notifyDataSetChanged();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+
+    private void showStatusMesage(String message){
+        NotificationManager mNotificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setSmallIcon(R.drawable.ic_launcher);
+        mBuilder.setContentTitle("Test");
+        mBuilder.setContentText(message);
+
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_add);
+
+        mBuilder.setLargeIcon(bm);
+
+        mNotificationManager.notify(1, mBuilder.build());
+    }
+
+    private void showMessage(String message){
+        boolean toast = prefs.getBoolean(NOTIF_TOAST, false);
+        boolean status = prefs.getBoolean(NOTIF_STATUS, false);
+
+        if (toast){
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
+
+        if (status){
+            showStatusMesage(message);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.detail_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+
+
+
     public ORMLightHelper getDatabaseHelper() {
         if (databaseHelper == null) {
             databaseHelper = OpenHelperManager.getHelper(this, ORMLightHelper.class);
