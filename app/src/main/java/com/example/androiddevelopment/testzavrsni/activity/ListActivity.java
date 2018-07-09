@@ -39,6 +39,7 @@ public class ListActivity extends AppCompatActivity {
     private ORMLightHelper databaseHelper;
     private SharedPreferences prefs;
 
+
     public static String PRIJAVA_KEY = "PRIJAVA_KEY";
     public static String NOTIF_TOAST = "notif_toast";
     public static String NOTIF_STATUS = "notif_statis";
@@ -135,20 +136,21 @@ public class ListActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.add_prijava_layout);
 
                 Button add = (Button) dialog.findViewById(R.id.add_prijava);
+
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         EditText naziv = (EditText) dialog.findViewById(R.id.prijava_naziv);
                         EditText opis = (EditText) dialog.findViewById(R.id.prijava_opis);
                         EditText status = (EditText) dialog.findViewById(R.id.prijava_status);
-                        EditText datum = (EditText) dialog.findViewById(R.id.prijava_datum);
+                       // EditText datum = (EditText) dialog.findViewById(R.id.prijava_datum);
                        // EditText stavka = (EditText) dialog.findViewById(R.id.stavka_naslov);
 
                         Prijava a = new Prijava();
                         a.setmIme(naziv.getText().toString());
                         a.setmOpis(opis.getText().toString());
                         a.setmStatus(status.getText().toString());
-                        a.setmDatum(datum.getText().toString());
+                      //  a.setmDatum(datum.getText().toString());
 
                         try {
                             getDatabaseHelper().getPrijavaDao().create(a);
@@ -174,6 +176,15 @@ public class ListActivity extends AppCompatActivity {
 
                     }
                 });
+
+                Button back = (Button) dialog.findViewById(R.id.back);
+                back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
 
                 dialog.show();
 

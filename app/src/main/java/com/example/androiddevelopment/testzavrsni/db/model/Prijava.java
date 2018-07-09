@@ -15,6 +15,7 @@ public class Prijava {
     public static final String TABLE_PRIJAVA_STATUS = "status";
     public static final String TABLE_PRIJAVA_DATUM = "datum";
     public static final String TABLE_PRIJAVA_STAVKA = "stavka";
+    public static final String FIELD_NAME_USER  = "user";
 
     @DatabaseField(columnName = FIELD_NAME_ID, generatedId = true)
     private int mId;
@@ -30,6 +31,9 @@ public class Prijava {
 
     @DatabaseField(columnName = TABLE_PRIJAVA_DATUM)
     private String mDatum;
+
+    @DatabaseField(columnName = FIELD_NAME_USER)
+    private String mUser;
 
     @ForeignCollectionField(columnName = Prijava.TABLE_PRIJAVA_STAVKA, eager = true)
     private ForeignCollection<Stavka> stavkas;
@@ -83,6 +87,14 @@ public class Prijava {
 
     public void setmDatum(String mDatum) {
         this.mDatum = mDatum;
+    }
+
+    public String getmUser() {
+        return mUser;
+    }
+
+    public void setmUser(String mUser) {
+        this.mUser = mUser;
     }
 
     @Override

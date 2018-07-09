@@ -20,7 +20,6 @@ public class Preferencess extends PreferenceActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
@@ -38,8 +37,6 @@ public class Preferencess extends PreferenceActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-
-            // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.preferencess);
         }
     }

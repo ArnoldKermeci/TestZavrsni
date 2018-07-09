@@ -17,7 +17,7 @@ android:orientation="vertical">
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:title="@string/activity_main_toolbar_title"
+        android:title="Toolbar title"
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay">
     </android.support.v7.widget.Toolbar>
