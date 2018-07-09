@@ -26,7 +26,7 @@ public class Prijava {
     private String mOpis;
 
     @DatabaseField(columnName = TABLE_PRIJAVA_STATUS)
-    private Float mStatus;
+    private String mStatus;
 
     @DatabaseField(columnName = TABLE_PRIJAVA_DATUM)
     private String mDatum;
@@ -69,11 +69,11 @@ public class Prijava {
         this.mOpis = mOpis;
     }
 
-    public Float getmStatus() {
+    public String getmStatus() {
         return mStatus;
     }
 
-    public void setmStatus(Float mStatus) {
+    public void setmStatus(String mStatus) {
         this.mStatus = mStatus;
     }
 
