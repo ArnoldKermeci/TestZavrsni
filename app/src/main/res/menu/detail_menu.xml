@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/add_new_stavka"
-        android:title="@string/fragment_detal_action_add"
+        android:title="Add"
         android:icon="@android:drawable/ic_menu_add"
         app:showAsAction="ifRoom" />
 

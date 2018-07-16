@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,9 +48,9 @@ public class DetailActivity  extends AppCompatActivity {
             setContentView(R.layout.activity_detail);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        if(toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
+//        if(toolbar != null) {
+//            setSupportActionBar(toolbar);
+//        }
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         int key = getIntent().getExtras().getInt(PRIJAVA_KEY);
@@ -70,7 +71,7 @@ public class DetailActivity  extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        final ListView listView = (ListView) findViewById(R.id.prijava_list);
+        final ListView listView = (ListView) findViewById(R.id.stavke_prijava);
 
         try {
             List<Prijava> list = getDatabaseHelper().getPrijavaDao().queryBuilder()
@@ -84,7 +85,7 @@ public class DetailActivity  extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Prijava m = (Prijava) listView.getItemAtPosition(position);
-                    Toast.makeText(this, m.getmIme()+" "+m.getmOpis()+" "+m.getmStatus(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailActivity.this, m.getmIme()+" "+m.getmOpis()+" "+m.getmStatus(), Toast.LENGTH_SHORT).show();
 
                 }
             });
@@ -92,6 +93,11 @@ public class DetailActivity  extends AppCompatActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     private void refresh() {
